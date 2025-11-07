@@ -57,10 +57,10 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({ onImagesChange, pr
     };
 
     return (
-        <Panel>
-            <h2 className="text-lg font-bold text-slate-200 mb-4 text-left">{label}</h2>
+        <Panel className="h-full flex flex-col">
+            <h2 className="text-lg font-bold text-slate-200 mb-4 text-left flex-shrink-0">{label}</h2>
             <div
-                className="relative w-full h-80 bg-slate-800 rounded-lg border-2 border-dashed border-slate-700 hover:border-emerald-500 transition-colors cursor-pointer flex items-center justify-center"
+                className="relative w-full flex-grow bg-slate-800 rounded-lg border-2 border-dashed border-slate-700 hover:border-emerald-500 transition-colors cursor-pointer flex items-center justify-center"
                 onClick={handleContainerClick}
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}

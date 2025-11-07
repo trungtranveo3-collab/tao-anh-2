@@ -6,9 +6,10 @@ interface ApiKeyManagerProps {
     onApiKeySubmit: (key: string) => void;
     error?: string | null;
     isLoading?: boolean;
+    onClose?: () => void;
 }
 
-export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({ onApiKeySubmit, error, isLoading }) => {
+export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({ onApiKeySubmit, error, isLoading, onClose }) => {
     const [apiKeyInput, setApiKeyInput] = useState('');
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -24,7 +25,19 @@ export const ApiKeyManager: React.FC<ApiKeyManagerProps> = ({ onApiKeySubmit, er
                  <style>
                     {`@keyframes fade-in { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } } .animate-fade-in { animation: fade-in 0.3s ease-out forwards; }`}
                 </style>
-                <Panel className="animate-fade-in">
+                <Panel className="animate-fade-in relative">
+                    {onClose && (
+                        <button
+                            type="button"
+                            onClick={onClose}
+                            className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors z-10"
+                            aria-label="Đóng"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    )}
                     <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
                         <div className="text-center">
                             <h1 className="led-text-effect text-3xl sm:text-4xl font-black tracking-wider uppercase" style={{ textShadow: '0 0 10px rgba(52, 211, 153, 0.4)' }}>

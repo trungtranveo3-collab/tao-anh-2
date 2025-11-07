@@ -36,9 +36,9 @@ const ImageBox: React.FC<ImageBoxProps> = ({ onImageChange, onClear, preview, la
   };
 
   return (
-    <div className="flex-1 flex flex-col items-center space-y-2 w-full">
+    <div className="flex-1 flex flex-col items-center space-y-2 w-full h-full">
        <div
-          className="relative w-full h-72 bg-slate-800 rounded-lg border-2 border-dashed border-slate-700 hover:border-emerald-500 transition-colors cursor-pointer flex items-center justify-center"
+          className="relative w-full flex-grow bg-slate-800 rounded-lg border-2 border-dashed border-slate-700 hover:border-emerald-500 transition-colors cursor-pointer flex items-center justify-center"
           onClick={handleContainerClick}
       >
         <input
@@ -69,7 +69,7 @@ const ImageBox: React.FC<ImageBoxProps> = ({ onImageChange, onClear, preview, la
           </div>
         )}
       </div>
-      <p className="text-slate-400 font-semibold">{label}</p>
+      <p className="text-slate-400 font-semibold flex-shrink-0">{label}</p>
     </div>
   );
 };
@@ -81,9 +81,9 @@ interface CoupleImageUploaderProps {
 
 export const CoupleImageUploader: React.FC<CoupleImageUploaderProps> = ({ onImageChange, previews }) => {
   return (
-    <Panel>
-      <h2 className="text-lg font-bold text-slate-200 mb-4 text-left">Bước 1: Tải Ảnh Gốc</h2>
-      <div className="flex flex-col sm:flex-row items-start justify-center gap-4 sm:gap-8">
+    <Panel className="h-full flex flex-col">
+      <h2 className="text-lg font-bold text-slate-200 mb-4 text-left flex-shrink-0">Bước 1: Tải Ảnh Gốc</h2>
+      <div className="flex flex-col sm:flex-row items-stretch justify-center gap-4 sm:gap-8 flex-grow">
         <ImageBox 
           onImageChange={(file) => onImageChange(file, 0)} 
           onClear={() => onImageChange(null, 0)}

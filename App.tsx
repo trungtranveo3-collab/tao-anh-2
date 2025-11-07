@@ -31,7 +31,15 @@ const fileToGenerativePart = async (file: File) => {
   };
 };
 
-const SESSION_STORAGE_KEY = 'gemini-api-key';
+const LOCAL_STORAGE_KEY = 'gemini-api-key';
+
+const KeyIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className={className} viewBox="0 0 20 20" fill="currentColor">
+        <path fillRule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L4.22 19.78a.75.75 0 01-1.06-1.06l6.02-6.02A6 6 0 0118 8zm-6-3a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0V5z" clipRule="evenodd" />
+    </svg>
+);
+
+const headerBgImageUrl = 'data:image/webp;base64,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';
 
 function App() {
   // API Key Management
@@ -82,15 +90,33 @@ function App() {
       }
       const genAI = new GoogleGenAI({ apiKey });
       setAi(genAI);
-      sessionStorage.setItem(SESSION_STORAGE_KEY, apiKey);
+      localStorage.setItem(LOCAL_STORAGE_KEY, apiKey);
       setApiKeyError(null);
     } catch (e) {
       console.error("Failed to initialize GoogleGenAI:", e);
       setApiKeyError("Khởi tạo AI client thất bại. API Key có thể không hợp lệ.");
       setAi(null);
-      sessionStorage.removeItem(SESSION_STORAGE_KEY);
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
     }
   }, []);
+  
+  const handleChangeApiKey = useCallback(() => {
+    setAi(null);
+    setApiKeyError(null);
+    // Resetting other states for a clean slate
+    setSourceImages([]);
+    setCoupleSourceImages([null, null]);
+    setProductSourceImage(null);
+    setGeneratedImages([]);
+    setError(null);
+  }, []);
+
+  const handleCancelChangeKey = useCallback(() => {
+    const storedApiKey = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (storedApiKey) {
+        initializeAiClient(storedApiKey);
+    }
+  }, [initializeAiClient]);
 
   // New function for handling fresh key submission with verification
   const handleApiKeySubmit = useCallback(async (apiKey: string) => {
@@ -113,9 +139,7 @@ function App() {
           });
 
           // If the test call succeeds, finalize setup
-          setAi(genAI);
-          sessionStorage.setItem(SESSION_STORAGE_KEY, apiKey);
-          setApiKeyError(null);
+          initializeAiClient(apiKey);
 
       } catch (e: any) {
           console.error("API Key verification failed:", e);
@@ -130,15 +154,15 @@ function App() {
               setApiKeyError("Không thể xác thực API Key. Vui lòng thử lại.");
           }
           setAi(null);
-          sessionStorage.removeItem(SESSION_STORAGE_KEY);
+          localStorage.removeItem(LOCAL_STORAGE_KEY);
       } finally {
           setIsVerifyingKey(false);
       }
-  }, []);
+  }, [initializeAiClient]);
 
-  // Try to initialize AI client from session storage on mount
+  // Try to initialize AI client from local storage on mount
   useEffect(() => {
-    const storedApiKey = sessionStorage.getItem(SESSION_STORAGE_KEY);
+    const storedApiKey = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (storedApiKey) {
       initializeAiClient(storedApiKey);
     }
@@ -398,7 +422,7 @@ QUAN TRỌNG: Giữ nguyên các đặc điểm khuôn mặt và ngoại hình c
       if (errorMessage.includes('permission denied') || errorMessage.includes('api key not valid')) {
         setApiKeyError('API Key không hợp lệ hoặc đã hết hạn. Vui lòng kiểm tra và nhập lại.');
         setAi(null);
-        sessionStorage.removeItem(SESSION_STORAGE_KEY);
+        localStorage.removeItem(LOCAL_STORAGE_KEY);
       } else {
         setError('Đã xảy ra lỗi trong quá trình tạo ảnh. Vui lòng kiểm tra console để biết thêm chi tiết.');
       }
@@ -450,20 +474,45 @@ QUAN TRỌNG: Giữ nguyên các đặc điểm khuôn mặt và ngoại hình c
 
   }, [coupleSourceImages, previews]);
 
+  const storedKey = localStorage.getItem(LOCAL_STORAGE_KEY);
+
   if (!ai) {
-    return <ApiKeyManager onApiKeySubmit={handleApiKeySubmit} error={apiKeyError} isLoading={isVerifyingKey} />;
+    return <ApiKeyManager 
+        onApiKeySubmit={handleApiKeySubmit} 
+        error={apiKeyError} 
+        isLoading={isVerifyingKey}
+        onClose={storedKey ? handleCancelChangeKey : undefined}
+    />;
   }
 
   return (
     <div className="min-h-screen text-slate-300">
-      <main className="max-w-screen-2xl mx-auto p-4 sm:p-6 lg:p-8">
-        <header className="text-center mb-12 pb-8 border-b border-emerald-400/20">
-          <h1 className="led-text-effect text-5xl sm:text-6xl font-black tracking-wider uppercase" style={{ textShadow: '0 0 15px rgba(52, 211, 153, 0.5), 0 0 25px rgba(52, 211, 153, 0.3)' }}>
-            AI Photoshoot
-          </h1>
-          <p className="mt-4 text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto tracking-wide">
-            Biến mọi bức ảnh thành kiệt tác chuyên nghiệp chỉ trong vài giây.
-          </p>
+      <main className="max-w-screen-2xl mx-auto p-4 sm:p-6 lg:p-8 relative">
+        <button
+            onClick={handleChangeApiKey}
+            className="absolute top-6 right-6 z-20 flex items-center space-x-2 px-3 py-2 text-xs font-semibold bg-slate-800/70 hover:bg-red-600/80 rounded-lg text-slate-300 hover:text-white transition-colors"
+            aria-label="Change API Key"
+        >
+            <KeyIcon className="w-4 h-4" />
+            <span>Đổi API Key</span>
+        </button>
+        <header 
+          className="relative text-center mb-12 rounded-xl overflow-hidden shadow-glow-green"
+          style={{
+            backgroundImage: `url(${headerBgImageUrl})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+          <div className="relative z-10 py-16 sm:py-20">
+              <h1 className="led-text-effect text-5xl sm:text-6xl font-black tracking-wider uppercase" style={{ textShadow: '0 0 15px rgba(52, 211, 153, 0.5), 0 0 25px rgba(52, 211, 153, 0.3)' }}>
+                AI Photoshoot
+              </h1>
+              <p className="mt-4 text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto tracking-wide">
+                Biến mọi bức ảnh thành kiệt tác chuyên nghiệp chỉ trong vài giây.
+              </p>
+          </div>
         </header>
         
         {activeTab !== 'wedding' && activeTab !== 'product' && (

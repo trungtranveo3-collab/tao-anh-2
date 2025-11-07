@@ -58,12 +58,12 @@ export const MultiImageUploader: React.FC<MultiImageUploaderProps> = ({ onFilesC
   const canUploadMore = files.length < 15;
 
   return (
-    <Panel>
-      <div className="flex justify-between items-center mb-4">
+    <Panel className="h-full flex flex-col">
+      <div className="flex justify-between items-center mb-4 flex-shrink-0">
         <h2 className="text-lg font-bold text-slate-200 text-left">Bước 1: Tải Ảnh Gốc</h2>
         <p className="text-sm text-slate-400">{files.length} / 15</p>
       </div>
-      <div className="h-80 overflow-y-auto pr-2" onDrop={handleDrop} onDragOver={handleDragOver}>
+      <div className="flex-grow overflow-y-auto pr-2" onDrop={handleDrop} onDragOver={handleDragOver}>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
           {previews.map((preview, index) => (
             <div key={index} className="relative aspect-square">
